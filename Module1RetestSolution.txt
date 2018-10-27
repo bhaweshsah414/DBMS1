@@ -1,0 +1,310 @@
+HTML
+-----------------------------------
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <center>
+    
+    
+    
+        <title>
+            Employee Details
+        </title>
+        
+        
+<SCRIPT type="text/javascript">
+    function myFunction(){
+        
+        var w=document.forms["myForm"]["fname"].value;
+        var x=document.forms["myForm"]["lname"].value;
+        var y=parseInt(document.forms["myForm"]["gross"].value);
+        var z=document.forms["myForm"]["address"].value;
+        var name=w+x;
+        var tax=0;
+        var netsalary=0;
+        
+        
+        if(w==""){
+            alert("Enter your full name");
+            return false;
+        }
+        else if(x==""){
+            alert("Enter your last name.");
+            return false;
+        }
+        else if(y==""){
+            alert("Enter your gross salary");
+            return false;
+        }
+        else if(z==""){
+            alert("Enter your address.");
+            return false;
+        }
+        else if(y<0){
+            alert("Gross Salary value shouldbe a positive number.");
+            return false;
+        }
+        else if(name.length>=15){
+            alert("Employee name cannot exceed 15 characters.");
+            return false;
+        }      
+    
+        
+         if(isNaN(y)){
+            alert("Enter salary in digits only");
+            //return false;
+        }       
+       else{
+       if(y< 180000){
+                    tax=0;
+                }
+        else if(y<=300000)
+        {
+            tax=y*0.1;
+            
+        }       
+        else if(y<=500000)
+        {
+            tax=y*0.2;
+            
+        }
+        else if(y>500000)
+        {
+            tax=y*0.3;          
+        }
+        netsalary = y-tax;      
+         /* if((y>=180000)&&(y<300000)){
+                    
+                }
+          if((y>=300000)&&(y<500000)){
+                      tax=(y*(20/100));
+                      }
+           if((y>=500000){
+                      tax=(y*(30/100));
+                      }
+          netsalary = y-tax;
+         // document.writeln("Income Tax is "+tax);
+          //document.writeln("Net Salary is "+netsalary);
+        */
+        var newpage=window.open();
+        newpage.document.writeln(w+" "+x+" "+"Your income tax is "+tax+"<br>");
+        newpage.document.writeln();
+        newpage.document.writeln(w+" "+x+" Your Net Salary is "+netsalary);
+        }
+          
+          }
+</SCRIPT>
+
+    </head>
+        <body>
+            <table border="2">
+            <tr>
+            <td>
+            <center><h2>EMPLOYEE DETAILS</h2><br>    
+                <form action="" method="GET" name="myForm" >
+                    <table border="00" width="300">
+                       <tr><td>Title :</td><td><select><option value="Mr">Mr</option><option value="Ms">Ms</option> <option value="Mrs">Mrs</option></select></tr></td>
+  
+                      <tr><td>First Name :</td><td><input type="text" id="fname"></td></tr>
+                        <tr><td>Last Name :</td><td><input type="text" id="lname"></td></tr>
+                        <tr><td>Gross Salary :</td><td><input type="number" id="gross"></td></tr>
+                        <tr><td>Address :</td><td><textarea cols="20" rows="4" id="address"></textarea></td></tr>
+                </table>
+		<table>    
+    <td>     <button onclick="myFunction()"align="right">Salary Slip</button></center></td>
+           
+                </form>
+            </center>
+            </td>
+        </tr>
+        </table>
+        
+            
+        </body>
+        
+    
+</html>
+
+
+
+
+
+
+
+
+
+-------------------------------------------------
+Table
+-------------------------------------------------
+
+create table employees(employee_code number, Employee_name varchar2(15), D
+te_of_joining date, Employee_salary number,grade char(2) references salgrade(gr
+de));
+
+insert into salgrade values('A',10000,20000);
+insert into salgrade values('B',20001,40000);
+insert into salgrade values('C',40001,60000);
+insert into employees values(101,'preetham',' 10-jan-2010',18000,'A');
+insert into employees values(102,'Aakash',' 10-nov-2005',48000,'C');
+insert into employees values(103,'Kishore',' 19-dec-2011',21000,'B');
+insert into employees values(104,'Reena',' 23-jun-2006',42000,'C');
+insert into employees values(105,'Kailash',' 05-feb-2004',46000,'C');
+insert into employees values(106,'Sahana','18-nov-2003',52000,'C');
+insert into employees values(107,'keerthana','25-jul-2006',27000,'B');
+create sequence empCode_Seq start with 108;
+
+
+select * from salgrade;
+
+select * from employees;
+
+select count(employee_code) from employees where Employee_salary > (select
+avg(Employee_salary) from employees);
+
+------------------------------------
+Q1-Procedure
+------------------------------------
+
+
+CREATE OR REPLCAE PROCEDURE query_emp
+(v_eno IN e,p.empno%TYPE, v_name OUT emp.ename%TYPE, v_sal OUT emp.sal%TYPE)
+IS
+BEGIN
+	SELECT ename, sal INTO v_name,vsal FROM emp
+where empno_v_eno;
+EXCEPTION
+WHEN NO_DATA_FOUND THEN
+RAISE_APPLICATION_ERROR(-20001,'Employee does not exist');
+END query_emp;
+
+
+
+create table empd(empid number, name varchar2(20), experience nummber, salary number)
+/
+insert into empd values(1,'Sachin',7,20000)
+insert into empd values(2,'Nilesh',3,10000)
+update empd set salary=salary+salary*.10 where experience>5;
+
+
+
+-------------------------------------
+
+
+DECLARE
+amount NUMBER;
+BEGIN
+PROCEDURENAME(1000001,amount);
+dbms_output.put_line(amount);
+END;
+
+------------------------------------------
+Q2 a)Update employees set employee_salary = Employee_salary * 1.1 Where (sysdate - date_of_joining) > 5;
+   b)Alter table employees Add col_name varchar2(40)
+   c)Select count( employee_code) from employees where Employee_salary > (select avg( Employee_salary) from employees
+-----------------------------------------
+Q3 INSERT INTO employee VALUES (employee_code.NEXTVAL, employeename, sysdate, salary);
+
+
+----------------------------------------
+XML
+----------------------------------------
+
+
+<?xml version="1.0"?>
+    <employee>
+	<Employee_code>101</Employee_code>
+        <Employee_name>Preetham</Employee_name>
+	<Date_of_joining>10-JAN-2010</Date_of_joining>
+	<Salary>18000</Salary>
+	<grade>A</grade>
+   
+	<Employee_code>102</Employee_code>
+        <Employee_name>Akash</Employee_name>
+	<Date_of_joining>10-NOV-2005</Date_of_joining>
+	<Salary>48000</Salary>
+	<grade>C</grade>
+  
+	<Employee_code>103</Employee_code>
+        <Employee_name>Kishore</Employee_name>
+	<Date_of_joining>19-DEC-2011</Date_of_joining>
+	<Salary>21000</Salary>
+	<grade>B</grade>
+   
+	<Employee_code>104</Employee_code>
+        <Employee_name>Reena</Employee_name>
+	<Date_of_joining>23-JUN-2006</Date_of_joining>
+	<Salary>42000</Salary>
+	<grade>C</grade>
+   
+	<Employee_code>105</Employee_code>
+        <Employee_name>Kaliash</Employee_name>
+	<Date_of_joining>5-FEB-2004</Date_of_joining>
+	<Salary>46000</Salary>
+	<grade>C</grade>
+
+	<Employee_code>106</Employee_code>
+        <Employee_name>Sahana</Employee_name>
+	<Date_of_joining>18-NOV-2003</Date_of_joining>
+	<Salary>52000</Salary>
+	<grade>C</grade>
+
+	<Employee_code>107</Employee_code>
+        <Employee_name>Keerthana</Employee_name>
+	<Date_of_joining>25-JUL-2006</Date_of_joining>
+	<Salary>27000</Salary>
+	<grade>B</grade>
+    </employee>
+
+----------------------------------
+XSD
+------------------------------------
+
+<?xml version="1.0" encoding="UTF-8"?>
+   <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+         <!-- XML Schema Generated from XML Document on Fri Oct 26 2018 22:59:09 GMT+0530 (India Standard Time) -->
+         <!-- with XmlGrid.net Free Online Service http://xmlgrid.net -->
+         <xs:element name="employee">
+               <xs:complexType>
+                     <xs:sequence>
+                           <xs:element name="Employee_code" type="xs:int"></xs:element>
+                           <xs:element name="Employee_name" type="xs:string"></xs:element>
+                           <xs:element name="Date_of_joining" type="xs:string"></xs:element>
+                           <xs:element name="Salary" type="xs:int"></xs:element>
+                           <xs:element name="grade" type="xs:string"></xs:element>
+                           <xs:element name="Employee_code" type="xs:int"></xs:element>
+                           <xs:element name="Employee_name" type="xs:string"></xs:element>
+                           <xs:element name="Date_of_joining" type="xs:string"></xs:element>
+                           <xs:element name="Salary" type="xs:int"></xs:element>
+                           <xs:element name="grade" type="xs:string"></xs:element>
+                           <xs:element name="Employee_code" type="xs:int"></xs:element>
+                           <xs:element name="Employee_name" type="xs:string"></xs:element>
+                           <xs:element name="Date_of_joining" type="xs:string"></xs:element>
+                           <xs:element name="Salary" type="xs:int"></xs:element>
+                           <xs:element name="grade" type="xs:string"></xs:element>
+                           <xs:element name="Employee_code" type="xs:int"></xs:element>
+                           <xs:element name="Employee_name" type="xs:string"></xs:element>
+                           <xs:element name="Date_of_joining" type="xs:string"></xs:element>
+                           <xs:element name="Salary" type="xs:int"></xs:element>
+                           <xs:element name="grade" type="xs:string"></xs:element>
+                           <xs:element name="Employee_code" type="xs:int"></xs:element>
+                           <xs:element name="Employee_name" type="xs:string"></xs:element>
+                           <xs:element name="Date_of_joining" type="xs:string"></xs:element>
+                           <xs:element name="Salary" type="xs:int"></xs:element>
+                           <xs:element name="grade" type="xs:string"></xs:element>
+                           <xs:element name="Employee_code" type="xs:int"></xs:element>
+                           <xs:element name="Employee_name" type="xs:string"></xs:element>
+                           <xs:element name="Date_of_joining" type="xs:string"></xs:element>
+                           <xs:element name="Salary" type="xs:int"></xs:element>
+                           <xs:element name="grade" type="xs:string"></xs:element>
+                           <xs:element name="Employee_code" type="xs:int"></xs:element>
+                           <xs:element name="Employee_name" type="xs:string"></xs:element>
+                           <xs:element name="Date_of_joining" type="xs:string"></xs:element>
+                           <xs:element name="Salary" type="xs:int"></xs:element>
+                           <xs:element name="grade" type="xs:string"></xs:element>
+                     </xs:sequence>
+               </xs:complexType>
+         </xs:element>
+   </xs:schema>
